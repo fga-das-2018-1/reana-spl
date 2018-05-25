@@ -434,6 +434,13 @@ public class FDTMC {
         State successInlined = iface.getSuccess();
         State errorInlined = iface.getError();
     }
+
+    // Aplicando técnica: Introduzir método
+    private void setFragment(FDTMC fragment) {
+        State initialFragment = fragment.getInitialState();
+        State successFragment = fragment.getSuccessState();
+        State errorFragment = fragment.getErrorState();
+    }
     
     private void inlineInInterface(Interface iface, FDTMC fragment, Map<State, State> statesMapping) {
         Map<State, State> fragmentStatesMapping = this.inlineStates(fragment);
