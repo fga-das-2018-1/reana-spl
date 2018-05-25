@@ -446,12 +446,8 @@ public class FDTMC {
         Map<State, State> fragmentStatesMapping = this.inlineStates(fragment);
         this.inlineTransitions(fragment, fragmentStatesMapping);
 
-        State initialInlined = iface.getInitial();
-        State initialFragment = fragment.getInitialState();
-        State successInlined = iface.getSuccess();
-        State successFragment = fragment.getSuccessState();
-        State errorInlined = iface.getError();
-        State errorFragment = fragment.getErrorState();
+        this.setIface(iface);
+        this.setFragment(fragment);
 
         this.createTransition(statesMapping.get(initialInlined),
                               fragmentStatesMapping.get(initialFragment),
