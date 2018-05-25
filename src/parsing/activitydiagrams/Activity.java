@@ -15,12 +15,8 @@ public class Activity {
 	private String sdID;
 	private Fragment sd;
 
-	public Activity(String id, String name, String type) {
-		this.id = id;
-		this.name = name;
-		this.incoming = new ArrayList<Edge>();
-		this.outgoing = new ArrayList<Edge>();
-		this.ordered = false;
+	// Aplicando Introduzir método
+	private setTypeValue(String type) {
 		if ("uml:InitialNode".equals(type)) {
 			this.type = ActivityType.INITIAL_NODE;
 		} else if ("uml:ActivityFinalNode".equals(type)) {
@@ -31,7 +27,16 @@ public class Activity {
 			this.type = ActivityType.DECISION;
 		} else if ("uml:MergeNode".equals(type)) {
 			this.type = ActivityType.MERGE;
-		}
+		}		
+	}
+
+	public Activity(String id, String name, String type) {
+		this.id = id;
+		this.name = name;
+		this.incoming = new ArrayList<Edge>();
+		this.outgoing = new ArrayList<Edge>();
+		this.ordered = false;
+		this.setTypeValue(type);
 	}
 
 	public String getName() {
