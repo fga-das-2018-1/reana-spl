@@ -202,6 +202,11 @@ public class FDTMC {
 
 		Set<State> tmpStates = this.transitionSystem.keySet();
 		Iterator <State> itStates = tmpStates.iterator();
+		msg = convertStateString(msg, itStates);
+		return msg;
+	}
+
+	private String convertStateString(String msg, Iterator<State> itStates) {
 		while (itStates.hasNext()) {
 			State temp = itStates.next();
 			List<Transition> transitionList = this.transitionSystem.get(temp);
@@ -263,7 +268,12 @@ public class FDTMC {
         FDTMC inlined = new FDTMC();
         Map<State, State> statesMapping = copyForInlining(inlined);
 
-        for (Map.Entry<String, List<Interface>> entry: interfaces.entrySet()) {
+        getStatesInlineds(indexedModels, inlined, statesMapping);
+        return inlined;
+    }
+
+	private void getStatesInlineds(Map<String, FDTMC> indexedModels, FDTMC inlined, Map<State, State> statesMapping) {
+		for (Map.Entry<String, List<Interface>> entry: interfaces.entrySet()) {
             String dependencyId = entry.getKey();
             if (indexedModels.containsKey(dependencyId)) {
                 FDTMC fragment = indexedModels.get(dependencyId);
@@ -274,8 +284,7 @@ public class FDTMC {
                 }
             }
         }
-        return inlined;
-    }
+	}
 
     /**
      * Returns a copy of this FDTMC decorated with "presence transitions",
