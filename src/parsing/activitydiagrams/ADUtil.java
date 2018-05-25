@@ -19,20 +19,22 @@ public class ADUtil {
 		for (Activity a : adParser.getActivities()) {
 			message += a.print();
 			if (!a.getIncoming().isEmpty()) {
-				message += "\tIncoming Edges:\n";
-				for (Edge e : a.getIncoming()) {
-				    message += "\t\t";
-					message += e.print();
-				}
+				message = addTabandPrint(a, message, "\tIncoming Edges:\n");
 			}
 			if (!a.getOutgoing().isEmpty()) {
-			    message += "\tOutgoing Edges:\n";
-				for (Edge e : a.getOutgoing()) {
-				    message += "\t\t";
-				    message += e.print();
-				}
+				message = addTabandPrint(a, message, "\tOutgoing Edges:\n");
 			}
 		}
 		return message;
 	}
+	private static String addTabandPrint(Activity a, String message, String primeMensage) {
+		message += primeMensage;
+		for (Edge e : a.getOutgoing()) {
+		    message += "\t\t";
+		    message += e.print();
+		}
+		
+		return message;
+	}
+	
 }
