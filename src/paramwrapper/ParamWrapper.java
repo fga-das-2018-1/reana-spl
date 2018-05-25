@@ -27,19 +27,15 @@ public class ParamWrapper implements ParametricModelChecker {
 	private String paramPath;
 	private IModelCollector modelCollector;
 	private boolean usePrism = false;
-	private FileContainer fileContainer;
 
 	public ParamWrapper(String paramPath) {
 		this(paramPath, new NoopModelCollector());
-		fileContainer = new FileContainer();
-
 	}
 
 	public ParamWrapper(String paramPath, IModelCollector modelCollector) {
 		this.paramPath = paramPath;
 		this.usePrism = paramPath.contains("prism");
 		this.modelCollector = modelCollector;
-		fileContainer = new FileContainer();
 	}
 
 	public String fdtmcToParam(FDTMC fdtmc) {
