@@ -16,7 +16,7 @@ public class RDGNode {
 	//This reference is used to store all the RDGnodes created during the evaluation
 	private static Map<String, RDGNode> rdgNodes = new HashMap<String, RDGNode>();
 	private static List<RDGNode> nodesInCreationOrder = new LinkedList<RDGNode>();
-
+	private TopSort topSort = new TopSort();
     private static int lastNodeIndex = 0;
 
 	// Node identifier
@@ -133,31 +133,8 @@ public class RDGNode {
     public List<RDGNode> getDependenciesTransitiveClosure() throws CyclicRdgException {
         List<RDGNode> transitiveDependencies = new LinkedList<RDGNode>();
         Map<RDGNode, Boolean> marks = new HashMap<RDGNode, Boolean>();
-        topoSortVisit(this, marks, transitiveDependencies);
+        topSort.topoSortVisit(this, marks, transitiveDependencies);
         return transitiveDependencies;
-    }
-
-    /**
-     * Topological sort {@code visit} function (Cormen et al.'s algorithm).
-     * @param node
-     * @param marks
-     * @param sorted
-     * @throws CyclicRdgException
-     */
-    private void topoSortVisit(RDGNode node, Map<RDGNode, Boolean> marks, List<RDGNode> sorted) throws CyclicRdgException {
-        if (marks.containsKey(node) && marks.get(node) == false) {
-            // Visiting temporarily marked node -- this means a cyclic dependency!
-            throw new CyclicRdgException();
-        } else if (!marks.containsKey(node)) {
-            // Mark node temporarily (cycle detection)
-            marks.put(node, false);
-            for (RDGNode child: node.getDependencies()) {
-                topoSortVisit(child, marks, sorted);
-            }
-            // Mark node permanently (finished sorting branch)
-            marks.put(node, true);
-            sorted.add(node);
-        }
     }
 
     /**
