@@ -449,17 +449,17 @@ public class FDTMC {
         this.setIface(iface);
         this.setFragment(fragment);
 
-        this.createTransition(statesMapping.get(initialInlined),
-                              fragmentStatesMapping.get(initialFragment),
+        this.createTransition(iface.getInitial(),
+        					  fragment.getInitialState(),
                               "",
                               "1");
-        this.createTransition(fragmentStatesMapping.get(successFragment),
-                              statesMapping.get(successInlined),
+        this.createTransition(fragment.getSuccessState(),
+        					  iface.getSuccess(),
                               "",
                               "1");
-        if (errorFragment != null) {
-            this.createTransition(fragmentStatesMapping.get(errorFragment),
-                                  statesMapping.get(errorInlined),
+        if (fragment.getErrorState() != null) {
+            this.createTransition(fragment.getErrorState(),
+            					  iface.getError(),
                                   "",
                                   "1");
         }

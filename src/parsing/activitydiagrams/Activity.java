@@ -16,7 +16,7 @@ public class Activity {
 	private Fragment sd;
 
 	// Aplicando Introduzir método
-	private setTypeValue(String type) {
+	private void setTypeValue(String type) {
 		if ("uml:InitialNode".equals(type)) {
 			this.type = ActivityType.INITIAL_NODE;
 		} else if ("uml:ActivityFinalNode".equals(type)) {
