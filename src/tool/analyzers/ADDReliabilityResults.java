@@ -34,18 +34,25 @@ public class ADDReliabilityResults implements IReliabilityAnalysisResults {
         int numReorderings = results.getReorderingsCount();
         int numGarbageCollections = results.getGarbageCollectionsCount();
         long numBytesADD = results.getAddSizeInBytes();
-
-        output.println("# variables: " + numVariables);
-        output.println("# internal nodes: " + numNodes);
-        output.println("# dead nodes: " + numDeadNodes);
-        output.println("# terminals different than zero: " + numTerminalsNonZero);
-        output.println("# paths to non-zero terminals: " + numPathsToNonZeroTerminals);
-        output.println("# paths to zero terminal: " + numPathsToZeroTerminal);
-        output.println("# reorderings: " + numReorderings);
-        output.println("# garbage collections: " + numGarbageCollections);
-        output.println("ADD's size in # of bytes: " + numBytesADD);
-
-        output.println("Order of variables: " + results.getVariableOrder());
+        
+        printDetailsStats(output, numVariables, numNodes, numDeadNodes, numTerminalsNonZero, numPathsToNonZeroTerminals, numPathsToZeroTerminal, numReorderings, numGarbageCollections, numBytesADD);
+        
+        
+    }
+    
+    public void printDetailsStats(PrintStream output, int numVariables, int numNodes, int numDeadNodes, int numTerminalsNonZero, double numPathsToNonZeroTerminals, double numPathsToZeroTerminal, int numReorderings, int numGarbageCollections, long numBytesADD) {
+    	
+    	output.println("# variables: " + numVariables);
+         output.println("# internal nodes: " + numNodes);
+         output.println("# dead nodes: " + numDeadNodes);
+         output.println("# terminals different than zero: " + numTerminalsNonZero);
+         output.println("# paths to non-zero terminals: " + numPathsToNonZeroTerminals);
+         output.println("# paths to zero terminal: " + numPathsToZeroTerminal);
+         output.println("# reorderings: " + numReorderings);
+         output.println("# garbage collections: " + numGarbageCollections);
+         output.println("ADD's size in # of bytes: " + numBytesADD);
+         
+         output.println("Order of variables: " + results.getVariableOrder());
     }
 
 }
