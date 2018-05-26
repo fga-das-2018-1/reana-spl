@@ -62,18 +62,23 @@ public class Activity extends ActivityDiagramElement {
 
 		if (sequenceDiagrams.size() > 0) {
 			Iterator<SequenceDiagram> its = sequenceDiagrams.iterator();
-			Element seqDiag;
-			while (its.hasNext()) {
-				SequenceDiagram sd = its.next();
-				seqDiag = doc.createElement("RepresentedBy");
-				seqDiag.setAttribute("seqDiagName", sd.getName());
-				e.appendChild(seqDiag);
-			}
+			
+			e = getElement(e, doc, its);
 		}
 
 		return e;
 	}
-
+	
+	public Element getElement(Element e, Document doc, Iterator<SequenceDiagram> its) {
+		Element seqDiag;
+		while (its.hasNext()) {
+			SequenceDiagram sd = its.next();
+			seqDiag = doc.createElement("RepresentedBy");
+			seqDiag.setAttribute("seqDiagName", sd.getName());
+			e.appendChild(seqDiag);
+		}
+		return e;
+	}
 	/**
 	 * This method implements a non-recursive version of the method for getting
 	 * all sequence diagrams which can be reached from an activity.
