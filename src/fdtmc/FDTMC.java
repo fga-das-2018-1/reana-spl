@@ -423,19 +423,25 @@ public class FDTMC {
         for (Map.Entry<String, List<Interface>> entry : fdtmc.interfaces.entrySet()) {
             List<Interface> newInterfaces = new LinkedList<Interface>();
             this.interfaces.put(entry.getKey(), newInterfaces);
-            for (Interface iface : entry.getValue()) {
-                Transition successTransition = inlineTransition(iface.getSuccessTransition(), statesOldToNew);
-                Transition errorTransition = inlineTransition(iface.getErrorTransition(), statesOldToNew);
-                Interface newInterface = new Interface(iface.getAbstractedId(),
-                                                       statesOldToNew.get(iface.getInitial()),
-                                                       statesOldToNew.get(iface.getSuccess()),
-                                                       statesOldToNew.get(iface.getError()),
-                                                       successTransition,
-                                                       errorTransition);
-                newInterfaces.add(newInterface);
-            }
+            // Extract method to simplify the original
+            addNewInterface(statesOldToNew, entry, newInterfaces);
         }
     }
+
+	private void addNewInterface(Map<State, State> statesOldToNew, Map.Entry<String, List<Interface>> entry, List<Interface> newInterfaces) {
+		// chunk of extracted code
+		for (Interface iface : entry.getValue()) {
+		    Transition successTransition = inlineTransition(iface.getSuccessTransition(), statesOldToNew);
+		    Transition errorTransition = inlineTransition(iface.getErrorTransition(), statesOldToNew);
+		    Interface newInterface = new Interface(iface.getAbstractedId(),
+		                                           statesOldToNew.get(iface.getInitial()),
+		                                           statesOldToNew.get(iface.getSuccess()),
+		                                           statesOldToNew.get(iface.getError()),
+		                                           successTransition,
+		                                           errorTransition);
+		    newInterfaces.add(newInterface);
+		}
+	}
 
     // Aplicando técnica: Introduzir método
     private void setIface(Interface iface) {
