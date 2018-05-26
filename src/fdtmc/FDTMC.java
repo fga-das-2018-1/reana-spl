@@ -433,13 +433,14 @@ public class FDTMC {
 		for (Interface iface : entry.getValue()) {
 		    Transition successTransition = inlineTransition(iface.getSuccessTransition(), statesOldToNew);
 		    Transition errorTransition = inlineTransition(iface.getErrorTransition(), statesOldToNew);
-		    Interface newInterface = new Interface(iface.getAbstractedId(),
+		    // replacing temporary for query
+		    newInterfaces.add( new Interface(iface.getAbstractedId(),
 		                                           statesOldToNew.get(iface.getInitial()),
 		                                           statesOldToNew.get(iface.getSuccess()),
 		                                           statesOldToNew.get(iface.getError()),
 		                                           successTransition,
-		                                           errorTransition);
-		    newInterfaces.add(newInterface);
+		                                           errorTransition)
+		    					);
 		}
 	}
 
