@@ -97,9 +97,7 @@ public class Activity extends ActivityDiagramElement {
 //			System.out.println("$$$$$$$$ "+s.getName() + " -> "+ s.getGuardCondition());
 			pendingFragments.addAll(s.getFragments());
 			for (Fragment fr : s.getFragments()) {
-				if (!pendingFragments.contains(fr)) {
-					pendingFragments.add(fr);
-				}
+				pendingFragments = checkFragments(fr, pendingFragments);
 			}
 			answer.add(s);
 			while (!pendingFragments.isEmpty()) {
@@ -114,6 +112,15 @@ public class Activity extends ActivityDiagramElement {
 			}
 		}
 		return answer;
+	}
+	
+	private LinkedList<Fragment> checkFragments(Fragment fr, LinkedList<Fragment> pendingFragments) {
+		
+		if (!pendingFragments.contains(fr)) {
+			pendingFragments.add(fr);
+		}
+		
+		return pendingFragments;
 	}
 
 	/**
